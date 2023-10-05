@@ -45,7 +45,7 @@ public class CharacterMovement : MonoBehaviour
     {
         bool isGrounded = controller.isGrounded;
         // TODO 
-        Debug.Log(isGrounded);
+        // Debug.Log(isGrounded);
         if (move != Vector3.zero)
         {
             if (GetMovementSpeed() == runSpeed)
@@ -63,12 +63,6 @@ public class CharacterMovement : MonoBehaviour
         }
 
         animator.SetBool("isGrounded", isGrounded);
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            animator.applyRootMotion = true;
-            animator.SetTrigger("doRoll");
-        }
     }
 
     void ProcessMovement()
