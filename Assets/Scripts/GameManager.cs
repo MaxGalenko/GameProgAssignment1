@@ -1,18 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static GameManager Instance { get; private set; }
+
+    public float Score = 0;
+    public float CurrentScore = 0;
+
     void Start()
     {
-        
+        CurrentScore = Score;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+        DontDestroyOnLoad(Instance);
+    }
+
+    public void IncrementScore()
+    {
+        Score += 50;
     }
 }

@@ -354,8 +354,12 @@
 "Assets/Scripts/Death.cs"
 "Assets/Scripts/EndMenuManager.cs"
 "Assets/Scripts/GameManager.cs"
+"Assets/Scripts/JumpPowerUp.cs"
 "Assets/Scripts/MenuManager.cs"
+"Assets/Scripts/MoneyPowerUp.cs"
+"Assets/Scripts/ScoreUI.cs"
 "Assets/Scripts/TargetManager.cs"
+"Assets/Scripts/TrapMovement.cs"
 -langversion:9.0
 
 /deterministic

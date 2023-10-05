@@ -16,7 +16,7 @@ public class Death : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            EndMenu();
+            RestartLevel();
         }
     }
 
@@ -24,12 +24,12 @@ public class Death : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            EndMenu();
+            RestartLevel();
         }
     }
 
-    private void EndMenu()
+    private void RestartLevel()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
