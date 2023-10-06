@@ -10,7 +10,7 @@ public class JumpPowerUp : MonoBehaviour
     {
         if(other != null)
         {
-            //GameManager.Instance.IncrementScore();
+            GameManager.Instance.JumpPowerUp();
             gameObject.SetActive(false);
             GameObject particleSystemBurst = Instantiate(particleSystem, transform.position, transform.rotation);
             Destroy(particleSystemBurst, 3);

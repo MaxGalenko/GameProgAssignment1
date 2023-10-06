@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
 
     public float Score = 0;
     public float CurrentScore = 0;
+    public bool PowerUp = false;
 
     void Start()
     {
-        CurrentScore = Score;
+        
     }
 
     private void Awake()
@@ -29,8 +30,28 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(Instance);
     }
 
+    public void LevelCompleted()
+    {
+        CurrentScore = Score;
+    }
+
     public void IncrementScore()
     {
         Score += 50;
+    }
+
+    public void ResetScore()
+    {
+        Score = CurrentScore;
+    }
+
+    public void JumpPowerUp()
+    {
+        PowerUp = true;
+    }
+
+    public bool IsJumpPowerUp()
+    {
+        return PowerUp;
     }
 }

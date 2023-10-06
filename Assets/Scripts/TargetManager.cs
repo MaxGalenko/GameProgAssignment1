@@ -9,6 +9,7 @@ public class TargetManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameManager.Instance.LevelCompleted();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }

@@ -7,12 +7,11 @@ public class CharacterMovement : MonoBehaviour
 {
     Vector3 playerVelocity;
     Vector3 move;
-
     public float walkSpeed = 5;
     public float runSpeed = 8;
     public float jumpHeight = 2;
     public float gravity = -9.18f;
-
+    public bool doubleJump = GameManager.Instance.IsJumpPowerUp();
     private CharacterController controller;
     private Animator animator;
 
@@ -44,8 +43,6 @@ public class CharacterMovement : MonoBehaviour
     void UpdateAnimator()
     {
         bool isGrounded = controller.isGrounded;
-        // TODO 
-        // Debug.Log(isGrounded);
         if (move != Vector3.zero)
         {
             if (GetMovementSpeed() == runSpeed)
@@ -77,11 +74,11 @@ public class CharacterMovement : MonoBehaviour
     public void ProcessGravity()
     {
         bool isGrounded = controller.isGrounded;
-        // Since there is no physics applied on character controller we have this applies to reapply gravity
+        animator.SetBool("DoubleJump", false);
 
         if (isGrounded)
         {
-            if (playerVelocity.y < 0.0f) // we want to make sure the players stays grounded when on the ground
+            if (playerVelocity.y < 0.0f)
             {
                 playerVelocity.y = -1.0f;
             }
@@ -91,13 +88,24 @@ public class CharacterMovement : MonoBehaviour
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
             }
         }
-        else // if not grounded
+        else if (!isGrounded && !doubleJump) // if not grounded with power up
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+                animator.SetBool("DoubleJump", true);
+            }
+            else
+            {
+                playerVelocity.y += gravity * Time.deltaTime;
+            }
+        }
+        else
         {
             playerVelocity.y += gravity * Time.deltaTime;
         }
 
         controller.Move(move * Time.deltaTime * GetMovementSpeed() + playerVelocity * Time.deltaTime);
-
     }
 
     float GetMovementSpeed()
