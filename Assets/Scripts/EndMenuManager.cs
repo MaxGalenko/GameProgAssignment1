@@ -5,11 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class EndMenuManager : MonoBehaviour
 {
-    public void OnRestartLevel()
-    {
-        
-    }
-
     public void OnRestartGame()
     {
         SceneManager.LoadScene(1);

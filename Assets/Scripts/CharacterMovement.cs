@@ -11,7 +11,8 @@ public class CharacterMovement : MonoBehaviour
     public float runSpeed = 8;
     public float jumpHeight = 2;
     public float gravity = -9.18f;
-    public bool doubleJump = GameManager.Instance.IsJumpPowerUp();
+    public bool isGrounded;
+    public bool doubleJump;
     private CharacterController controller;
     private Animator animator;
 
@@ -23,6 +24,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void Update()
     {
+        isGrounded = controller.isGrounded;
+        doubleJump = GameManager.Instance.PowerUp;
         if (animator.applyRootMotion == false)
         {
             ProcessMovement();
@@ -42,7 +45,7 @@ public class CharacterMovement : MonoBehaviour
 
     void UpdateAnimator()
     {
-        bool isGrounded = controller.isGrounded;
+        //bool isGrounded = controller.isGrounded;
         if (move != Vector3.zero)
         {
             if (GetMovementSpeed() == runSpeed)
@@ -73,8 +76,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void ProcessGravity()
     {
-        bool isGrounded = controller.isGrounded;
-        animator.SetBool("DoubleJump", false);
+        //bool isGrounded = controller.isGrounded;
+        animator.SetBool("DoubleJump", doubleJump);
 
         if (isGrounded)
         {
@@ -93,7 +96,7 @@ public class CharacterMovement : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-                animator.SetBool("DoubleJump", true);
+                //animator.SetBool("DoubleJump", doubleJump);
             }
             else
             {

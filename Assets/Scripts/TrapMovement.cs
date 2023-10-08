@@ -8,11 +8,6 @@ public class TrapMovement : MonoBehaviour
     float speed = 1.0f;
     public float maxTime = 5.0f;
     Vector3 movement = new Vector3 (0, 1, 0);
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

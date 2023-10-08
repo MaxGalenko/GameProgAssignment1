@@ -8,7 +8,7 @@ public class MoneyPowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other != null)
+        if(other != null)
         {
             GameManager.Instance.IncrementScore();
             gameObject.SetActive(false);

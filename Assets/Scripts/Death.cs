@@ -5,12 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Death : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -31,6 +25,7 @@ public class Death : MonoBehaviour
     private void RestartLevel()
     {
         GameManager.Instance.ResetScore();
+        GameManager.Instance.JumpPowerUpOff();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

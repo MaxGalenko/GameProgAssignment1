@@ -11,11 +11,6 @@ public class GameManager : MonoBehaviour
     public float CurrentScore = 0;
     public bool PowerUp = false;
 
-    void Start()
-    {
-        
-    }
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -45,13 +40,13 @@ public class GameManager : MonoBehaviour
         Score = CurrentScore;
     }
 
-    public void JumpPowerUp()
+    public void JumpPowerUpOn()
     {
         PowerUp = true;
     }
 
-    public bool IsJumpPowerUp()
+    public void JumpPowerUpOff()
     {
-        return PowerUp;
+        PowerUp = false;
     }
 }
