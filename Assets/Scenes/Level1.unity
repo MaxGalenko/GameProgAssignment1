@@ -4623,6 +4623,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 431784793}
     m_Modifications:
     - target: {fileID: 2938734849783056844, guid: 827709299f20e10408b8534e7fb59655, type: 3}
+      propertyPath: maxTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938734849783056844, guid: 827709299f20e10408b8534e7fb59655, type: 3}
       propertyPath: particleSystemPrefab
       value: 
       objectReference: {fileID: 6617942689790325260, guid: 2adf83591a2c986488333ceeb3cb8298, type: 3}
