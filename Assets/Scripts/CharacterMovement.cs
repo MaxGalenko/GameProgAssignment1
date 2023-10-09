@@ -10,26 +10,30 @@ public class CharacterMovement : MonoBehaviour
     public float walkSpeed = 5;
     public float runSpeed = 8;
     public float jumpHeight = 2;
-    public float gravity = -9.18f;
-    public bool isGrounded;
-    public bool doubleJump;
+    private float gravity = -9.18f;
+    private bool doubleJump;
+    private int jumpCount = 0;
+    public float mouseSensitivity = 2.0f;
     private CharacterController controller;
     private Animator animator;
+    private Transform cameraTransform;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        cameraTransform = Camera.main.transform;
     }
 
     public void Update()
     {
-        isGrounded = controller.isGrounded;
-        doubleJump = GameManager.Instance.PowerUp;
         if (animator.applyRootMotion == false)
         {
             ProcessMovement();
             ProcessGravity();
+            UpdateRotation();
+            Moving();
+            doubleJump = GameManager.Instance.PowerUp;
         }
     }
 
@@ -45,7 +49,7 @@ public class CharacterMovement : MonoBehaviour
 
     void UpdateAnimator()
     {
-        //bool isGrounded = controller.isGrounded;
+        bool isGrounded = controller.isGrounded;
         if (move != Vector3.zero)
         {
             if (GetMovementSpeed() == runSpeed)
@@ -65,19 +69,40 @@ public class CharacterMovement : MonoBehaviour
         animator.SetBool("isGrounded", isGrounded);
     }
 
+    void UpdateRotation()
+    {
+        transform.Rotate(0, Input.GetAxis("Mouse X") * mouseSensitivity, 0, Space.Self);
+    }
+
     void ProcessMovement()
     {
-        move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 cameraForward = cameraTransform.forward;
+        cameraForward.y = 0;
+        cameraForward.Normalize();
+
+        Vector3 cameraRight = cameraTransform.right;
+        cameraRight.y = 0;
+        cameraRight.Normalize();
+
+        move = (cameraForward * verticalInput + cameraRight * horizontalInput).normalized;
+    }
+
+    void Moving()
+    {
+        float mouseX = Input.GetAxis("Mouse X");
+
+        Vector3 horizontalMovement = transform.forward * move.z + transform.right * move.x;
+
+        transform.position = transform.position + horizontalMovement * GetMovementSpeed() * Time.deltaTime;
+        transform.Rotate(new Vector3(0, mouseX, 0));
     }
 
     public void ProcessGravity()
     {
-        //bool isGrounded = controller.isGrounded;
-        animator.SetBool("DoubleJump", doubleJump);
+        bool isGrounded = controller.isGrounded;
 
         if (isGrounded)
         {
@@ -88,15 +113,20 @@ public class CharacterMovement : MonoBehaviour
 
             if (Input.GetButtonDown("Jump")) // Code to jump
             {
+                animator.SetBool("DoubleJump", doubleJump);
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
             }
+            
+            jumpCount = 0;
         }
-        else if (!isGrounded && !doubleJump) // if not grounded with power up
+        else if (!isGrounded && doubleJump && jumpCount < 1) // if not grounded with power up
         {
             if (Input.GetButtonDown("Jump"))
             {
-                playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-                //animator.SetBool("DoubleJump", doubleJump);
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+                animator.SetBool("DoubleJump", false);
+                GameManager.Instance.JumpPowerUpOff();
+                jumpCount++;
             }
             else
             {

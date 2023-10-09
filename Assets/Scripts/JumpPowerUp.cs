@@ -13,7 +13,12 @@ public class JumpPowerUp : MonoBehaviour
             GameManager.Instance.JumpPowerUpOn();
             gameObject.SetActive(false);
             GameObject particleSystemBurst = Instantiate(particleSystem, transform.position, transform.rotation);
-            Destroy(particleSystemBurst, 3);
+            Invoke("ResetJumpPowerUp", 3.0f);
         }
+    }
+    
+    private void ResetJumpPowerUp()
+    {
+        gameObject.SetActive(true);
     }
 }

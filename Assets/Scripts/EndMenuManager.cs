@@ -7,6 +7,7 @@ public class EndMenuManager : MonoBehaviour
 {
     public void OnRestartGame()
     {
+        GameManager.Instance.ResetGameScore();
         SceneManager.LoadScene(1);
     }
 

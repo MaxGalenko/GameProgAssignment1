@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638321472436891170
+      ticks: 638323993894614797
     m_Hash: 2912547738
   m_LockFileStatus:
     m_FilePath: C:/Users/maxym/Documents/GameProgAssignment1/Packages/packages-lock.json
@@ -13,8 +13,8 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638321472812451128
-    m_Hash: 1591303429
+      ticks: 638323993894620056
+    m_Hash: 283103163
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:

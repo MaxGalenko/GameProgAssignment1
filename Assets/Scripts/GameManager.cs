@@ -35,9 +35,15 @@ public class GameManager : MonoBehaviour
         Score += 50;
     }
 
-    public void ResetScore()
+    public void ResetLevelScore()
     {
         Score = CurrentScore;
+    }
+
+    public void ResetGameScore()
+    {
+        Score = 0;
+        CurrentScore = 0;
     }
 
     public void JumpPowerUpOn()

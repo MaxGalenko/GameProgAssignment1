@@ -24,7 +24,7 @@ public class Death : MonoBehaviour
 
     private void RestartLevel()
     {
-        GameManager.Instance.ResetScore();
+        GameManager.Instance.ResetLevelScore();
         GameManager.Instance.JumpPowerUpOff();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
