@@ -103,9 +103,11 @@ public class CharacterMovement : MonoBehaviour
     public void ProcessGravity()
     {
         bool isGrounded = controller.isGrounded;
-
+        animator.SetBool("DoubleJump", doubleJump);
         if (isGrounded)
         {
+            jumpCount = 0;
+
             if (playerVelocity.y < 0.0f)
             {
                 playerVelocity.y = -1.0f;
@@ -113,20 +115,20 @@ public class CharacterMovement : MonoBehaviour
 
             if (Input.GetButtonDown("Jump")) // Code to jump
             {
-                animator.SetBool("DoubleJump", doubleJump);
+                jumpCount = 1;
+                animator.SetInteger("JumpCount", jumpCount);
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
             }
-            
-            jumpCount = 0;
         }
-        else if (!isGrounded && doubleJump && jumpCount < 1) // if not grounded with power up
+        else if (!isGrounded && doubleJump && jumpCount < 2) // if not grounded with power up
         {
             if (Input.GetButtonDown("Jump"))
             {
+                jumpCount = 2;
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-                animator.SetBool("DoubleJump", false);
+                animator.SetBool("DoubleJump", doubleJump);
+                animator.SetInteger("JumpCount", jumpCount);
                 GameManager.Instance.JumpPowerUpOff();
-                jumpCount++;
             }
             else
             {
